@@ -8,6 +8,7 @@ namespace MoneyXChangeServer.Core.Manager.Abstract
 {
     public interface ICurrencyManager
     {
-        IEnumerable<CurrencyDto> GetAllCurrency();
+        SymbolsDto GetAllCurrency();
+        SymbolRatesDto GetConversionRate(String fromCurrencyCode, string toCountryCodes);
     }
 }

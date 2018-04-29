@@ -9,18 +9,17 @@ using MoneyXChangeServer.Core.Manager.Abstract;
 namespace MoneyXChangeServer.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Currency")]
-    public class CurrencyController : Controller
+    [Route("/api/currency")]
+    public class ApiController : Controller
     {
         private readonly ICurrencyManager _currencyManager;
 
-        public CurrencyController(ICurrencyManager currencyManager)
+        public ApiController(ICurrencyManager currencyManager)
         {
             _currencyManager = currencyManager ?? throw new ArgumentNullException(nameof(currencyManager));
         }
 
-        // GET: api/Currency
-        [HttpGet]
+        [HttpGet("symbols", Name = "GetCurrencies")]
         public IActionResult GetCurrencies()
         {
             try
@@ -35,29 +34,18 @@ namespace MoneyXChangeServer.Controllers
             }
         }
 
-        // GET: api/Currency/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("latest", Name = "GetExchangeRates")]
+        public IActionResult GetExchangeRates([FromQuery] string @base, [FromQuery] string symbols)
         {
-            return "value";
-        }
-        
-        // POST: api/Currency
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-        
-        // PUT: api/Currency/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            try
+            {
+                var conversionRate = _currencyManager.GetConversionRate(@base, symbols);
+                return Ok(conversionRate);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
     }
 }

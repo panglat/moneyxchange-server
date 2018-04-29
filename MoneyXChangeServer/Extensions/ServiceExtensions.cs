@@ -45,7 +45,7 @@ namespace MoneyXChangeServer.Extensions
         public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
-            // services.AddScoped<ICurrencyRateRepository, CurrencyRateRepository>();
+            services.AddScoped<ICurrencyRateRepository, CurrencyRateRepository>();
         }
 
         public static void ConfigureManagers(this IServiceCollection services)
