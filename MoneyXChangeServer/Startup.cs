@@ -28,6 +28,9 @@ namespace MoneyXChangeServer
         {
             services.ConfigureCors();
             services.ConfigureIISIntegration();
+            services.ConfigureDbContext(Configuration);
+            services.ConfigureRepositories();
+            services.ConfigureManagers();
             services.AddMvc();
         }
 
