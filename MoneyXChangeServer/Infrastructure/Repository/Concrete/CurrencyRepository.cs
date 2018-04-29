@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MoneyXChangeServer.Infrastructure.Context;
 using MoneyXChangeServer.Infrastructure.Repository.Abstract;
 using MoneyXChangeServer.Model;
 using Repository.Concrete;
@@ -11,7 +12,7 @@ namespace MoneyXChangeServer.Infrastructure.Repository.Concrete
 {
     public class CurrencyRepository : RepositoryBase<Currency>, ICurrencyRepository
     {
-        public CurrencyRepository(DbContext repositoryContext) : base(repositoryContext)
+        public CurrencyRepository(CurrencyRateContext repositoryContext) : base(repositoryContext)
         {
         }
     }
