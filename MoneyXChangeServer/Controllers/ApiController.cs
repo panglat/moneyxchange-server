@@ -40,7 +40,12 @@ namespace MoneyXChangeServer.Controllers
             try
             {
                 var conversionRate = _currencyManager.GetConversionRate(@base, symbols);
-                return Ok(conversionRate);
+                if(conversionRate != null) { 
+                    return Ok(conversionRate);
+                } else
+                {
+                    return NoContent();
+                }
             }
             catch (Exception)
             {
